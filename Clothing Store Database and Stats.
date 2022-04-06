@@ -1,0 +1,33 @@
+CREATE TABLE store(
+id INTEGER PRIMARY KEY,
+item TEXT,
+cost INTEGER,
+designer TEXT,
+rating INTEGER
+);
+INSERT INTO store
+VALUES
+(1, 'Dress', 15, 'Gucci', 4),
+(2, 'Pants', 12, 'Gucci', 10),
+(3, 'Hat', 5, 'Prada', 7),
+(4, 'Bra', 45, 'Playtex', 8),
+(5, 'Jumpsuit', 60, 'Fashionova', 6),
+(6, 'Underwear', 4, 'Playtex', 8),
+(7, 'Shirt', 10, 'Prada', 10),
+(8, 'Tank', 35, 'Juicy', 7),
+(9, 'Cap', 34, 'Gucci', 10),
+(10, 'Coat', 80, 'Macys', 10),
+(11, 'Jacket', 60, 'Nordstrom', 8),
+(12, 'Top', 3, 'Walmart', 8),
+(13, 'Cami', 16, 'VS', 5),
+(14, 'Shoes', 45, 'Gucci', 7),
+(15, 'Heels', 40, 'Prada', 10);
+
+SELECT * FROM store
+ORDER BY cost;
+
+SELECT MIN(cost) FROM store;
+
+SELECT AVG(cost) FROM store;
+
+SELECT MAX(cost) FROM store;

@@ -1,4 +1,3 @@
-/* Create table about the people and what they do here */
 CREATE TABLE singers (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     first_name TEXT,

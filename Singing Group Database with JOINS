@@ -1,0 +1,92 @@
+/* Create table about the people and what they do here */
+CREATE TABLE singers (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name TEXT,
+    last_name TEXT,
+    group_name TEXT,
+    group_id INTEGER);
+    
+INSERT INTO singers (first_name, last_name, group_name, group_id)
+VALUES 
+('Beyonce', 'Knowles-Carter','Destinys Child', 1),
+('Otis', 'Williams', 'The Temptations', 2),
+('Justin', 'Timberlake', 'NSYNC', 3),
+('Jermaine', 'Jackson',  'The Jackson 5', 4),
+('Kelly', 'Rowland', 'Destinys Child', 1),
+('Lance', 'Bass', 'NSYNC', 3),
+('Michael', 'Jackson', 'The Jackson 5', 4),
+('David', 'Ruffin', 'The Temptations', 2),
+('Dawn', 'Richard', 'Dirty Money', 5),
+('Lauryn', 'Hill', 'The Fugees', 6),
+('Pharell', 'Williams', 'The Neptunes', 7),
+('Omarion', 'Grandberry', 'B2K', 8),
+('Wyclef', 'Jean', 'The Fugees', 6),
+('Sean', 'Combs', 'Dirty Money', 5),
+('Jarell', 'Houston', 'B2K', 8),
+('Chad', 'Hugo', 'The Neptunes', 7);
+    
+    
+CREATE TABLE songs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    singer_id INTEGER,
+    group_id INTEGER,
+    title TEXT,
+    genre TEXT);
+    
+INSERT INTO songs (singer_id, group_id, title, genre)
+VALUES
+(3, 3, 'Bye Bye Bye', 'Pop'),
+(2, 2, 'My Girl', 'R&B/Soul'),
+(4, 4, 'Heartbreak Hotel', 'R&B/Soul'),
+(1, 1, 'Hey Ladies', 'R&B'),
+(10, 6, 'FugeeLa', 'Hip Hop/Rap'),
+(9, 9, 'Good Morning', 'Hip Hop/Rap'),
+(12, 12, 'Bump Bump Bump', 'R&B'),
+(11, 7, 'Wait A Minute', 'Hip Hop/Funk'),
+(6, 3, 'Bye Bye Bye', 'Pop'),
+(8, 2, 'My Girl', 'R&B/Soul'),
+(7, 4, 'Heartbreak Hotel', 'R&B/Soul'),
+(5, 1, 'Hey Ladies', 'R&B'),
+(13, 6, 'FugeeLa', 'Hip Hop/Rap'),
+(14, 9, 'Good Morning', 'Hip Hop/Rap'),
+(15, 12, 'Bump Bump Bump', 'R&B'),
+(16, 7, 'Wait A Minute', 'Hip Hop/Funk');
+
+CREATE TABLE group_member (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    singer1_id INTEGER,
+    singer2_id INTEGER);
+
+INSERT INTO group_member (singer1_id, singer2_id)
+VALUES
+(1, 5),
+(2, 8),
+(3, 6),
+(4, 7),
+(9, 14),
+(10, 13),
+(11, 16),
+(12, 15);
+
+
+SELECT a.first_name, a.last_name, b.first_name, b.last_name, a.group_name
+FROM group_member g
+JOIN singers a
+ON a.id = singer1_id
+JOIN singers b
+ON singer2_id = b.id;
+
+SELECT singers.group_name, songs.genre
+FROM singers
+JOIN songs
+ON songs.singer_id = singers.id
+GROUP BY group_name;
+
+SELECT singers.group_name, songs.title
+FROM singers
+JOIN songs
+ON songs.group_id = singers.group_id
+GROUP BY singers.group_name;
+
+
+

@@ -1,0 +1,108 @@
+CREATE TABLE singers (
+    id INTEGER PRIMARY KEY,
+    first_name TEXT,
+    last_name TEXT,
+    group_name TEXT);
+    
+INSERT INTO singers
+VALUES 
+(1, 'Beyonce', 'Knowles-Carter','Destinys Child'),
+(2, 'Otis', 'Williams', 'The Temptations'),
+(3, 'Justin', 'Timberlake', 'NSYNC'),
+(4, 'Jermaine', 'Jackson',  'The Jackson 5'),
+(5, 'Kelly', 'Rowland', 'Destinys Child'),
+(6, 'Lance', 'Bass', 'NSYNC'),
+(7, 'Michael', 'Jackson', 'The Jackson 5'),
+(8, 'David', 'Ruffin', 'The Temptations'),
+(9, 'Dawn', 'Richard', 'Dirty Money'),
+(10, 'Lauryn', 'Hill', 'The Fugees'),
+(11, 'Pharell', 'Williams', 'The Neptunes'),
+(12, 'Omarion', 'Grandberry', 'B2K'),
+(13, 'Wyclef', 'Jean', 'The Fugees'),
+(14, 'Sean', 'Combs', 'Dirty Money'),
+(15, 'Jarell', 'Houston', 'B2K'),
+(16, 'Chad', 'Hugo', 'The Neptunes');
+    
+    
+CREATE TABLE songs (
+    id INTEGER PRIMARY KEY,
+    song_id INTEGER,
+    group_id INTEGER,
+    title TEXT,
+    genre TEXT);
+    
+INSERT INTO songs
+VALUES
+(1, 3, 3, 'Bye Bye Bye', 'Pop'),
+(2, 4, 2, 'My Girl', 'R&B/Soul'),
+(3, 2, 4, 'Heartbreak Hotel', 'R&B/Soul'),
+(4, 1, 1, 'Hey Ladies', 'R&B'),
+(5, 10, 10, 'FugeeLa', 'Hip Hop/Rap'),
+(6, 9, 9, 'Good Morning', 'Hip Hop/Rap'),
+(7, 12, 12, 'Bump Bump Bump', 'R&B'),
+(8, 11, 11, 'Wait A Minute', 'Hip Hop/Funk');
+
+CREATE TABLE group_member (
+    id INTEGER PRIMARY KEY,
+    singer1_id INTEGER,
+    singer2_id INTEGER);
+
+INSERT INTO group_member
+VALUES
+(1, 1, 5),
+(2, 2, 8),
+(3, 3, 6),
+(4, 4, 7),
+(5, 9, 14),
+(6, 10, 13),
+(7, 11, 16),
+(8, 12, 15);
+
+CREATE TABLE favorite_food (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    food TEXT);
+    
+INSERT INTO favorite_food (food)
+VALUES
+('Bananas'),
+('Chicken'),
+('Apples'),
+('Pizza'),
+('Eggs'),
+('Tofu'),
+('Soup'),
+('Steak'),
+('Shrimp'),
+('Salmon'),
+('Turkey Sub'),
+('Tacos'),
+('Chips'),
+('Chocolate'),
+('Cheese'),
+('Candy');
+    
+
+
+SELECT a.first_name, a.last_name, b.first_name, b.last_name, a.group_name
+FROM group_member g
+JOIN singers a
+ON a.id = singer1_id
+JOIN singers b
+ON singer2_id = b.id;
+
+SELECT singers.group_name, songs.genre
+FROM singers
+JOIN songs
+ON songs.song_id = singers.id;
+
+SELECT singers.group_name, songs.title
+FROM singers
+JOIN songs
+ON songs.group_id = singers.id;
+
+SELECT s.first_name, s.last_name, f.food
+FROM singers s
+JOIN favorite_food f
+ON f.id = s.id
+
+

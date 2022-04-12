@@ -35,9 +35,10 @@ ON feb.orderid = cust.order_id
 WHERE feb.quantity > 2;
 
 8. List all the products sold in Los Angeles in February, and include how many of each were sold.
-SELECT DISTINCT product, location
+SELECT DISTINCT product, location, SUM(quantity) AS total_sold
 FROM febsales
-WHERE location LIKE '%Los Angeles%';
+WHERE location LIKE '%Los Angeles%'
+GROUP BY product;
 
 9. List all order dates from 02/13/19 to 02/19/19.
 SELECT orderdate

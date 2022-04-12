@@ -60,6 +60,37 @@ SELECT DISTINCT product, price
 FROM febsales
 WHERE price LIKE '%.99';
 
+13. How many locations are there in New York that sold more than 1 product in January?
+SELECT COUNT (*) FROM jansales
+WHERE location LIKE '%NY%' AND quantity > 1;
+
+14. How many of each type of headphone were sold in February?
+SELECT DISTINCT product, SUM(quantity) AS total_sold
+FROM febsales
+WHERE product LIKE '%Headphones%'
+GROUP BY product;
+
+15. What was the average amount spent per account in February?
+SELECT AVG(quantity*price) AS avg_price
+FROM febsales 
+JOIN customers 
+ON febsales.orderid = customers.order_id;
+
+16. What was the average quantity of products purchased per account in February?
+SELECT AVG(quantity) AS avg_quantity
+FROM febsales
+JOIN customers
+ON febsales.orderid = customers.order_id;
+
+
+17. Which product brought in the most revenue in January and how much revenue did it bring in total?
+SELECT product, ROUND(SUM(quantity*price)) AS total_revenue
+FROM jansales
+GROUP BY product
+ORDER BY total_revenue DESC
+LIMIT 1
+
+
 
 
 

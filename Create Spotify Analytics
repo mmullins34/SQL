@@ -30,7 +30,6 @@ time_signature integer NOT NULL
 
 #First I determined the Top 10 tracks by popularity.
 SELECT track_name, popularity FROM spotifydata
-WHERE popularity >= 90
 GROUP by track_name
 ORDER BY popularity DESC
 LIMIT 10;

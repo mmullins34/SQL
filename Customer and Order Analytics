@@ -33,3 +33,35 @@ FROM febsales feb
 JOIN customers cust
 ON feb.orderid = cust.order_id
 WHERE feb.quantity > 2;
+
+8. List all the products sold in Los Angeles in February, and include how many of each were sold.
+SELECT DISTINCT product, location
+FROM febsales
+WHERE location LIKE '%Los Angeles%';
+
+9. List all order dates from 02/13/19 to 02/19/19.
+SELECT orderdate
+FROM febsales
+WHERE orderdate BETWEEN '02/13/19 00:00' AND '02/19/19 00:00';
+
+10. Where was the product ordered 02/18/19 at 1:35 delivered to?
+SELECT location
+FROM febsales
+WHERE orderdate = '02/18/19 01:35';
+
+11. List all of the products sold in February with the name "Batteries" in the product name.
+SELECT DISTINCT product
+FROM febsales
+WHERE product LIKE '%Batteries%';
+
+12. List all of the products with a price that ends in ".99".
+SELECT DISTINCT product, price
+FROM febsales
+WHERE price LIKE '%.99';
+
+
+
+
+
+
+

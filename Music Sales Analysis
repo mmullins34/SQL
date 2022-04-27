@@ -1,0 +1,79 @@
+#For this prroject, I'm analyzing data from a music sales database with multiple tables.
+
+#1. Customers (their full names, customer ID, and country) who are not in the US. 
+SELECT firstname, lastname, customerid, country
+FROM customers
+WHERE country != 'USA';
+
+#2. Customers from Brazil.
+SELECT *
+FROM customers
+WHERE country = 'Brazil';
+
+#3. Find the Invoices of customers who are from Brazil. 
+SELECT c.firstname, c.lastname, i.invoiceid, i.invoicedate, i.billingcountry
+FROM customers c
+JOIN invoices i
+ON c.customerid = i.customerid
+WHERE billingcountry = 'Brazil';
+
+#4. Employees who are Sales Agents.
+SELECT * FROM employees
+WHERE title = 'Sales Support Agent';
+
+#5. A unique/distinct list of billing countries from the Invoice table.
+SELECT DISTINCT billingcountry FROM invoices;
+
+#6. Invoices associated with each sales agent.
+SELECT e.firstname, e.lastname, i.invoiceid
+FROM customers c
+JOIN employees e 
+ON e.employeeid = c.supportrepid
+JOIN invoices i
+ON i.customerid = c.customerid
+WHERE e.title = 'Sales Support Agent';
+
+#7. Show the Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers.
+SELECT i.total, c.firstname, c.lastname, c.country, e.firstname, e.lastname
+FROM customers c
+JOIN employees e 
+ON e.employeeid = c.supportrepid
+JOIN invoices i
+ON i.customerid = c.customerid;
+
+
+#8. Total number of invoices in 2009.
+SELECT COUNT(*) FROM invoices
+WHERE invoicedate BETWEEN '2009-01-01' AND '2009-12-31';
+
+#9. Total sales in 2009.
+SELECT ROUND(SUM(total)) FROM invoices
+WHERE invoicedate BETWEEN '2009-01-01' AND '2009-12-31';
+
+#10. Purchased track name with each invoice line item.
+SELECT t.name, i.invoicelineid
+FROM tracks t
+JOIN invoice_items i
+ON t.trackid = i.trackid;
+
+#11. Purchased track name AND artist name with each invoice line item.
+SELECT t.name, art.name, i.invoicelineid
+FROM tracks t
+JOIN invoice_items i
+ON t.trackid = i.trackid
+JOIN albums a
+ON a.albumid = t.albumid
+JOIN artists art
+ON a.artistid = art.artistid;
+
+#12. All of the Tracks with Album name, Media type, and Genre.
+SELECT t.name AS song_title, a.title AS album_title, m.name AS media_type, g.name AS genre 
+FROM tracks t
+JOIN albums a
+ON t.albumid = a.albumid
+JOIN media_types m
+ON t.mediatypeid = m.mediatypeid 
+JOIN genres g
+ON t.genreid = g.genreid
+
+#13. 

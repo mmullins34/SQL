@@ -76,4 +76,24 @@ ON t.mediatypeid = m.mediatypeid
 JOIN genres g
 ON t.genreid = g.genreid
 
-#13. 
+#13. Total sales made by each sales agent.
+SELECT e.firstname, e.lastname, ROUND(SUM(i.total)) AS total_sales
+FROM employees e
+JOIN customers c
+ON e.employeeid = c.supportrepid
+JOIN invoices i
+ON i.customerid = c.customerid
+WHERE e.title = 'Sales Support Agent'
+GROUP BY e.firstname;
+
+#14. Which sales agent made the most in sales in 2009?
+SELECT e.firstname, e.lastname, ROUND(SUM(i.total)) AS total_sales
+FROM employees e
+JOIN customers c
+ON e.employeeid = c.supportrepid
+JOIN invoices i
+ON i.customerid = c.customerid
+WHERE e.title = 'Sales Support Agent' 
+AND i.invoicedate LIKE '%2009%'
+GROUP BY e.firstname
+ORDER BY total_sales DESC LIMIT 1;

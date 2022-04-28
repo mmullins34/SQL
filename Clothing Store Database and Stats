@@ -1,3 +1,5 @@
+#For this projusct, I created a table and queried the data using SQL.
+
 CREATE TABLE store(
 id INTEGER PRIMARY KEY,
 item TEXT,

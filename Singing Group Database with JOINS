@@ -1,3 +1,5 @@
+#For this project, I created a database with multiple tables and id's to show their relation.
+
 CREATE TABLE singers (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     first_name TEXT,

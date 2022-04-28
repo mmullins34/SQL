@@ -1,4 +1,4 @@
-#For this prroject, I'm analyzing data from a music sales database with multiple tables.
+#For this project, I'm querying data from a music sales database.
 
 #1. Customers (their full names, customer ID, and country) who are not in the US. 
 SELECT firstname, lastname, customerid, country

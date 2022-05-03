@@ -11,10 +11,10 @@ FROM customers
 WHERE country = 'Brazil';
 
 #3. Find the Invoices of customers who are from Brazil. 
-SELECT c.firstname, c.lastname, i.invoiceid, i.invoicedate, i.billingcountry
-FROM customers c
-JOIN invoices i
-ON c.customerid = i.customerid
+SELECT cust.firstname, cust.lastname, inv.invoiceid, inv.invoicedate, inv.billingcountry
+FROM customers cust
+JOIN invoices inv
+ON cust.customerid = inv.customerid
 WHERE billingcountry = 'Brazil';
 
 #4. Employees who are Sales Agents.
@@ -25,21 +25,21 @@ WHERE title = 'Sales Support Agent';
 SELECT DISTINCT billingcountry FROM invoices;
 
 #6. Invoices associated with each sales agent.
-SELECT e.firstname, e.lastname, i.invoiceid
-FROM customers c
-JOIN employees e 
-ON e.employeeid = c.supportrepid
-JOIN invoices i
-ON i.customerid = c.customerid
-WHERE e.title = 'Sales Support Agent';
+SELECT emp.firstname, emp.lastname, inv.invoiceid
+FROM customers cust
+JOIN employees emp
+ON emp.employeeid = cust.supportrepid
+JOIN invoices inv
+ON inv.customerid = cust.customerid
+WHERE emp.title = 'Sales Support Agent';
 
 #7. Show the Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers.
-SELECT i.total, c.firstname, c.lastname, c.country, e.firstname, e.lastname
-FROM customers c
-JOIN employees e 
-ON e.employeeid = c.supportrepid
-JOIN invoices i
-ON i.customerid = c.customerid;
+SELECT inv.total, cust.firstname, cust.lastname, cust.country, emp.firstname, emp.lastname
+FROM customers cust
+JOIN employees emp
+ON emp.employeeid = cust.supportrepid
+JOIN invoices inv
+ON inv.customerid = cust.customerid;
 
 
 #8. Total number of invoices in 2009.
@@ -51,49 +51,49 @@ SELECT ROUND(SUM(total)) FROM invoices
 WHERE invoicedate BETWEEN '2009-01-01' AND '2009-12-31';
 
 #10. Purchased track name with each invoice line item.
-SELECT t.name, i.invoicelineid
-FROM tracks t
-JOIN invoice_items i
-ON t.trackid = i.trackid;
+SELECT tracks .name, inv.invoicelineid
+FROM tracks 
+JOIN invoice_items inv
+ON tracks.trackid = inv.trackid;
 
 #11. Purchased track name AND artist name with each invoice line item.
-SELECT t.name, art.name, i.invoicelineid
-FROM tracks t
-JOIN invoice_items i
-ON t.trackid = i.trackid
-JOIN albums a
-ON a.albumid = t.albumid
+SELECT tracks.name, art.name, inv.invoicelineid
+FROM tracks
+JOIN invoice_items inv
+ON tracks.trackid = inv.trackid
+JOIN albums
+ON albums.albumid = tracks.albumid
 JOIN artists art
-ON a.artistid = art.artistid;
+ON albums.artistid = art.artistid;
 
 #12. All of the Tracks with Album name, Media type, and Genre.
-SELECT t.name AS song_title, a.title AS album_title, m.name AS media_type, g.name AS genre 
-FROM tracks t
-JOIN albums a
-ON t.albumid = a.albumid
-JOIN media_types m
-ON t.mediatypeid = m.mediatypeid 
-JOIN genres g
-ON t.genreid = g.genreid
+SELECT tracks.name AS song_title, albums.title AS album_title, media.name AS media_type, genres.name AS genre 
+FROM tracks 
+JOIN albums
+ON tracks.albumid = albums.albumid
+JOIN media_types media
+ON tracks.mediatypeid = media.mediatypeid 
+JOIN genres
+ON tracks.genreid = genres.genreid
 
 #13. Total sales made by each sales agent.
-SELECT e.firstname, e.lastname, ROUND(SUM(i.total)) AS total_sales
-FROM employees e
-JOIN customers c
-ON e.employeeid = c.supportrepid
-JOIN invoices i
-ON i.customerid = c.customerid
-WHERE e.title = 'Sales Support Agent'
-GROUP BY e.firstname;
+SELECT emp.firstname, emp.lastname, ROUND(SUM(inv.total)) AS total_sales
+FROM employees emp
+JOIN customers cust
+ON emp.employeeid = cust.supportrepid
+JOIN invoices inv
+ON inv.customerid = cust.customerid
+WHERE emp.title = 'Sales Support Agent'
+GROUP BY emp.firstname;
 
 #14. Which sales agent made the most in sales in 2009?
-SELECT e.firstname, e.lastname, ROUND(SUM(i.total)) AS total_sales
-FROM employees e
-JOIN customers c
-ON e.employeeid = c.supportrepid
-JOIN invoices i
-ON i.customerid = c.customerid
-WHERE e.title = 'Sales Support Agent' 
-AND i.invoicedate LIKE '%2009%'
-GROUP BY e.firstname
+SELECT emp.firstname, emp.lastname, ROUND(SUM(inv.total)) AS total_sales
+FROM employees emp
+JOIN customers cust
+ON emp.employeeid = cust.supportrepid
+JOIN invoices inv
+ON inv.customerid = cust.customerid
+WHERE emp.title = 'Sales Support Agent' 
+AND inv.invoicedate LIKE '%2009%'
+GROUP BY emp.firstname
 ORDER BY total_sales DESC LIMIT 1;

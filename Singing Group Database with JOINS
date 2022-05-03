@@ -70,23 +70,23 @@ VALUES
 (12, 15, 'B2K');
 
 
-SELECT a.first_name, a.last_name, b.first_name, b.last_name, g.group_name
-FROM group_members g
+SELECT a.first_name, a.last_name, b.first_name, b.last_name, group.group_name
+FROM group_members group
 JOIN singers a
 ON singer1_id = a.id
 JOIN singers b
 ON singer2_id = b.id;
 
-SELECT g.group_name, s.genre
-FROM songs s
-JOIN group_members g
-ON s.group_id = g.id
+SELECT group.group_name, songs.genre
+FROM songs 
+JOIN group_members group
+ON songs.group_id = group.id
 GROUP BY group_name;
 
-SELECT g.group_name, s.title
-FROM group_members g
-JOIN songs s
-ON s.group_id = g.id
-GROUP BY s.title;
+SELECT group.group_name, songs.title
+FROM group_members group
+JOIN songs
+ON songs.group_id = group.id
+GROUP BY songs.title;
 
 

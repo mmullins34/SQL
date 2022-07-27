@@ -1,0 +1,10 @@
+For this project I imported and queried data from https://ourworldindata.org/covid-deaths
+
+#Probability of death if positive for COVID in your country.
+SELECT location, date, total_cases, total_deaths, (total_deaths::decimal/total_cases)*100 as death_percentage
+FROM covid_deaths
+
+#Probability of death if positive for COVID in the United States.
+SELECT location, date, total_cases, total_deaths, (total_deaths::decimal/total_cases)*100 as death_percentage
+FROM covid_deaths
+WHERE location = 'United States'

@@ -8,3 +8,14 @@ FROM covid_deaths
 SELECT location, date, total_cases, total_deaths, (total_deaths::decimal/total_cases)*100 as death_percentage
 FROM covid_deaths
 WHERE location = 'United States'
+
+#Percentage of people who tested positive for COVID in the United States.
+SELECT location, date, total_cases, population, (total_cases::decimal/population)*100 as percentageofcovid
+FROM covid_deaths
+WHERE location = 'United States'
+
+#Countries with highest infection rate compared to population.
+SELECT location, population, MAX(total_cases) as highestinfectioncount, MAX((total_cases::decimal/population))*100 as percentageofpopulationinfected
+FROM covid_deaths
+GROUP BY location, population
+ORDER BY percentageofpopulationinfected DESC NULLS LAST

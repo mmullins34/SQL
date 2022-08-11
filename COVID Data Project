@@ -3,19 +3,58 @@ For this project I imported and queried data from https://ourworldindata.org/cov
 #Probability of death if positive for COVID in your country.
 SELECT location, date, total_cases, total_deaths, (total_deaths::decimal/total_cases)*100 as death_percentage
 FROM covid_deaths
+WHERE continent IS NOT NULL
 
 #Probability of death if positive for COVID in the United States.
 SELECT location, date, total_cases, total_deaths, (total_deaths::decimal/total_cases)*100 as death_percentage
 FROM covid_deaths
-WHERE location = 'United States'
+WHERE location = 'United States' AND continent IS NOT NULL
 
 #Percentage of people who tested positive for COVID in the United States.
 SELECT location, date, total_cases, population, (total_cases::decimal/population)*100 as percentageofcovid
 FROM covid_deaths
-WHERE location = 'United States'
+WHERE location = 'United States' AND continent IS NOT NULL
 
 #Countries with highest infection rate compared to population.
 SELECT location, population, MAX(total_cases) as highestinfectioncount, MAX((total_cases::decimal/population))*100 as percentageofpopulationinfected
 FROM covid_deaths
+WHERE continent IS NOT NULL
 GROUP BY location, population
 ORDER BY percentageofpopulationinfected DESC NULLS LAST
+
+#Countries with highest death rate compared to population.
+SELECT location, MAX(total_deaths) AS TotalDeathCount
+FROM covid_deaths
+WHERE continent IS NOT NULL
+GROUP BY location
+ORDER BY TotalDeathCount DESC NULLS LAST
+
+#Continents with highest death rate compared to population.
+SELECT location, MAX(total_deaths) AS TotalDeathCount
+FROM covid_deaths
+WHERE continent IS NULL and location NOT LIKE '%income%'
+GROUP BY location
+ORDER BY TotalDeathCount DESC NULLS LAST
+
+#New global cases by date.
+SELECT date, SUM(new_cases)
+FROM covid_deaths
+WHERE continent IS NOT NULL 
+GROUP BY date 
+ORDER BY 1
+
+#New global deaths by date.
+SELECT date, SUM(new_deaths)
+FROM covid_deaths
+WHERE continent IS NOT NULL 
+GROUP BY date 
+ORDER BY 1
+
+#Global death percentage by date.
+SELECT date, SUM(new_deaths)/SUM(new_cases)*100 AS globaldeathpercentage
+FROM covid_deaths
+WHERE continent IS NOT NULL 
+GROUP BY date 
+ORDER BY 1
+
+

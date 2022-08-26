@@ -1,0 +1,41 @@
+For this project, I extracted data from https://www.kaggle.com/datasets/kmldas/hr-employee-data-descriptive-analytics/discussion, transformed/cleaned the data, and imported it into postgreSQL
+
+#Total number of employees.
+SELECT COUNT(*) FROM employee_data
+
+#Total numbers of employees in sales department.
+SELECT COUNT(*) FROM employee_data
+WHERE department = 'sales'
+
+#Names of distinct departments throughout the company.
+SELECT DISTINCT department FROM employee_data
+WHERE department IS NOT NULL
+
+#Number of work accidents.
+SELECT COUNT(work_accident) FROM employee_data
+WHERE work_accident = 1
+
+#Number of employees who were promoted and left the company.
+SELECT COUNT(*) FROM employee_data
+WHERE left_company = 1 AND promotion_last_5years = 1
+
+#Total number of employees with the greatest amount of projects.
+SELECT COUNT(*)
+FROM employee_data
+WHERE number_of_projects = 7
+
+#Total number of employees with the greatest amount of projects and satisfaction level greater than 75%.
+SELECT COUNT(*)
+FROM employee_data
+WHERE number_of_projects = 7 AND satisfaction_level > 0.75
+
+#Total number of employees with the least amount of projects and satisfaction level greater than 75%.
+SELECT COUNT(*)
+FROM employee_data
+WHERE number_of_projects = 2 AND satisfaction_level > 0.75
+
+#Total number of employees who left the company and had a satisfaction level lower than 75%.
+SELECT COUNT(*)
+FROM employee_data
+WHERE left_company = 1 AND satisfaction_level < 0.75
+

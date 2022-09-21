@@ -1,4 +1,4 @@
-For this project, I extracted data from https://www.kaggle.com/datasets/kmldas/hr-employee-data-descriptive-analytics/discussion, transformed/cleaned the data, and imported it into postgreSQL
+For this project, I extracted data from https://www.kaggle.com/datasets/kmldas/hr-employee-data-descriptive-analytics/discussion, transformed/cleansed the data, and imported it into postgreSQL
 
 #Total number of employees.
 SELECT COUNT(*) FROM employee_data
